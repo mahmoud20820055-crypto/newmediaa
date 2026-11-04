@@ -1,20 +1,12 @@
-/* ===== New Media: Midnight AI - ألوان فقط ===== */
-/* يغيّر الألوان والخلفية فقط. لا يغيّر أماكن العناصر ولا الأحجام ولا الخطوط ولا الأيقونات ولا الإطارات. */
+/* ===== New Media: Midnight AI - لون الخلفية فقط ===== */
+/* يغيّر خلفية الصفحة ولون النص الموجود عليها مباشرة فقط.
+   لا يغيّر: أماكن العناصر، الأحجام، الخطوط، الأيقونات، التبويبات، البطاقات، الأزرار، النماذج. */
 /* للإلغاء: احذف هذا الكود كاملاً ثم تحديث. */
 
-:root {
-	--nm-bg: #030514;
-	--nm-sky: #38bdf8;
-	--nm-violet: #a78bfa;
-	--nm-text: #ffffff;
-	--nm-soft: #e0e7ff;
-	--nm-card: #0a0f2c;
-}
-
-/* ---------- الخلفية: أسود ليلي + شفق سماوي/بنفسجي متحرك + شبكة نقاط AI ---------- */
+/* ---------- الخلفية: أسود ليلي + شفق سماوي/بنفسجي متحرك + نقاط AI ---------- */
 /* الطبقات خلف كل المحتوى (z-index:-1) ولا تأخذ مكاناً ولا تمنع الضغط */
 body {
-	background-color: var(--nm-bg) !important;
+	background-color: #030514 !important;
 	background-image:
 		radial-gradient(1200px 700px at 50% -20%, rgba(76, 29, 149, 0.35), transparent 60%),
 		linear-gradient(180deg, #030514 0%, #070b24 45%, #030514 100%) !important;
@@ -56,7 +48,7 @@ html::before {
 @keyframes nm-pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.4; } }
 @media (prefers-reduced-motion: reduce) { body::before, html::before { animation: none !important; } }
 
-/* ---------- خلفيات الأقسام الفاتحة تصير شفافة (لون فقط، الصور تبقى) ---------- */
+/* ---------- خلفيات الأقسام والهيدر والفوتر: شفافة ليظهر اللون الليلي (الصور تبقى) ---------- */
 .website-wrapper, .main-page-wrapper, .site-content, .page-title,
 .wd-page-content, .elementor, .elementor-section, .e-con, .e-con-inner,
 .elementor-column-wrap, .elementor-widget-wrap, .elementor-widget-container,
@@ -67,76 +59,52 @@ body .elementor .elementor-column > .elementor-widget-wrap,
 body .elementor .elementor-column > .elementor-element-populated {
 	background-color: transparent !important;
 }
-
-/* ---------- الهيدر والفوتر: ليلي داكن ---------- */
 .whb-header .whb-row, .whb-header .whb-general-header,
 .whb-header .whb-top-bar, .whb-header .whb-header-bottom,
-.whb-sticky-prepared .whb-row, .whb-sticked .whb-row {
-	background-color: rgba(3, 5, 20, 0.85) !important;
-}
+.whb-sticky-prepared .whb-row, .whb-sticked .whb-row,
 .footer-container, .wd-prefooter, .copyrights-wrapper {
 	background-color: rgba(3, 5, 20, 0.85) !important;
 }
 
-/* ---------- البطاقات البيضاء تصير كحلي ليلي (لون فقط) ---------- */
-body .article-inner, body .tlp-portfolio-item, body .tlp-portfolio-thum,
-body .bdt-review-card, body .wd-tabs .wd-tab-content,
-body .mobile-nav, body .wd-side-hidden,
-html body .blog-design-masonry .article-inner,
-html body .wd-post .article-inner,
-html body article .article-inner,
-html body .wd-post-date.wd-style-with-bg,
-html body .wd-nav-tabs > li:not(.wd-active),
-html body .elementor-widget-wd_tabs li:not(.wd-active) {
-	background-color: var(--nm-card) !important;
+/* ---------- النص الموجود على الخلفية: أبيض واضح ----------
+   مستثنى منه كل ما له خلفية خاصة (تبويبات، بطاقات، أزرار، نماذج، أيقونات) فيبقى كما هو تماماً */
+:is(span, label, td, th, blockquote, figcaption, h1, h2, h3, h4, h5, h6, .title,
+    .wd-entities-title a, .wd-nav-main > li > a, .wd-nav .nav-link-text,
+    .breadcrumbs a, .post-title a):not(:is(.wd-nav-tabs, .tlp-portfolio-item, .article-inner, .wd-post-date, .bdt-review-card,
+         button, .btn, .button, .elementor-button, form, .mobile-nav, .wd-side-hidden,
+         .wd-dropdown, .sub-menu, .joinchat, .mfp-wrap, .wd-popup) *):not(i, svg, .list-icon, [class*="fa-"], [class*="icon"]) {
+	color: #ffffff !important;
 }
-
-/* زر إرسال النموذج: سماوي بدل الرمادي الفاتح */
-html body .wpforms-container .wpforms-submit,
-html body button.wpforms-submit {
-	background-color: #0284c7 !important;
-	color: #fff !important;
-}
-
-/* ---------- النصوص: أبيض واضح (الأيقونات تبقى بلونها الأصلي) ---------- */
-body, span:not(.list-icon):not([class*="fa-"]):not([class*="icon"]), label, td, th, blockquote, figcaption,
-h1, h2, h3, h4, h5, h6, .title, .wd-entities-title, .wd-entities-title a,
-.elementor-heading-title, .wd-list-content,
-.wd-nav > li > a, .wd-nav-main > li > a, .wd-nav .nav-link-text,
-.post-title a, .page-title .title, .breadcrumbs a,
-.wd-tabs-title, .wd-nav-tabs > li > a, .portfolio-entry a,
-body .tlp-portfolio-item, body .tlp-portfolio-item *:not(i):not(svg):not([class*="fa-"]):not([class*="icon"]),
-body .mobile-nav a, body .wd-side-hidden a {
-	color: var(--nm-text) !important;
-}
-p, .elementor-widget-text-editor, .entry-content, .wd-post-excerpt, .wd-entities-desc,
-.portfolio-info, .post-meta, .wd-post-date, .meta-author {
-	color: var(--nm-soft) !important;
+:is(p, .elementor-widget-text-editor .elementor-widget-container, .wd-entities-desc):not(:is(.wd-nav-tabs, .tlp-portfolio-item, .article-inner, .bdt-review-card, form,
+         .mobile-nav, .wd-side-hidden, .joinchat, .mfp-wrap, .wd-popup) *) {
+	color: #e0e7ff !important;
 }
 
 /* العناوين الكبيرة: تدرّج سماوي ← بنفسجي (لون فقط) */
-h1.elementor-heading-title, h2.elementor-heading-title, .page-title .title {
+:is(h1.elementor-heading-title, h2.elementor-heading-title, .page-title .title):not(:is(.tlp-portfolio-item, .article-inner, .wd-popup) *) {
 	background-image: linear-gradient(120deg, #38bdf8 0%, #818cf8 50%, #a78bfa 100%);
 	-webkit-background-clip: text;
 	background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
 
-/* الروابط عند المرور والقائمة النشطة: سماوي */
-a:hover, .wd-nav > li.current-menu-item > a, .wd-nav > li > a:hover {
-	color: var(--nm-sky) !important;
+/* أزرار الفلترة الشفافة (الكل / تصميم جرافيكي ...): نفس الشكل، فقط الإطار والنص أبيض ليظهروا على الأسود */
+.wd-nav-tabs.wd-icon-pos-left > li:not(.wd-active) {
+	border-color: rgba(255, 255, 255, 0.85) !important;
+}
+.wd-nav-tabs.wd-icon-pos-left > li:not(.wd-active) .wd-tabs-title {
+	color: #ffffff !important;
 }
 
-/* ---------- حقول النماذج: خلفية داكن ونص أبيض (بدون تغيير الحجم أو الإطار) ---------- */
-body input:not([type="submit"]), body textarea, body select,
-html body div.wpforms-container-full .wpforms-form textarea,
-html body div.wpforms-container-full .wpforms-form input[type=text],
-html body div.wpforms-container-full .wpforms-form input[type=email],
-html body div.wpforms-container-full .wpforms-form input[type=tel] {
-	background-color: rgba(255, 255, 255, 0.05) !important;
-	color: #fff !important;
+/* صفحة المقال الواحد ونموذج التعليقات (بدون خلفية خاصة): نص أبيض */
+.post-single-page .article-inner :is(h1, h2, h3, h4, .wd-entities-title, .wd-entities-title a, li, span:not([class*="icon"]):not([class*="fa-"])):not(.wd-post-date *),
+.comments-area :is(h2, h3, label, .comment-reply-title, .comment-notes, .logged-in-as, .comment-form-cookies-consent label) {
+	color: #ffffff !important;
 }
-input::placeholder, textarea::placeholder { color: #9aa3d9 !important; }
+.post-single-page .article-inner :is(p, .entry-content) { color: #e0e7ff !important; }
+
+/* النجوم في قائمة الخدمات: نفس لونها الأصلي */
+i.ep-icon-star { color: rgb(231, 231, 231) !important; }
 
 ::selection { background: rgba(139, 92, 246, 0.45); color: #fff; }
-/* ===== نهاية Midnight AI - ألوان فقط ===== */
+/* ===== نهاية Midnight AI ===== */
