@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>הכל להכל | ציוד וריהוט לעסקים – ברטעה</title>
+  <meta name="description" content="הכל להכל בברטעה – ריהוט משרדי, מדפים, מיכון לעסק, ציוד למסעדות, קיוסקים, סופרים ואטליזים, ומוצרים חד פעמיים מפלסטיק, קרטון ונייר.">
+  <meta name="theme-color" content="#0f3d5e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a href="#top" class="logo" aria-label="הכל להכל – לדף הבית">
+        <span class="logo__mark">ה</span>
+        <span class="logo__text">הכל <b>להכל</b></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="ניווט ראשי">
+        <a href="#categories">קטגוריות</a>
+        <a href="#why">למה אנחנו</a>
+        <a href="#about">אודות</a>
+        <a href="#contact">צור קשר</a>
+      </nav>
+      <a class="btn btn--wa btn--sm header__cta" data-wa href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+        וואטסאפ
+      </a>
+      <button class="burger" id="burger" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__text">
+          <span class="badge"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg> ברטעה</span>
+          <h1>כל מה שהעסק שלך צריך – <span class="hl">במקום אחד</span></h1>
+          <p class="lead">ריהוט משרדי, מדפים, מיכון וציוד מקצועי למסעדות, קיוסקים, סופרים ואטליזים, וכל מוצרי החד פעמי – בפלסטיק, קרטון ונייר.</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#categories">לכל הקטגוריות</a>
+            <a class="btn btn--wa" data-wa href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+              הזמנה בוואטסאפ
+            </a>
+          </div>
+          <ul class="hero__facts">
+            <li><b>10</b> תחומים</li>
+            <li><b>מאות</b> מוצרים</li>
+            <li><b>ייעוץ</b> אישי</li>
+          </ul>
+        </div>
+        <div class="hero__art" aria-hidden="true">
+          <div class="tiles" id="heroTiles"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Categories ===== -->
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">הקטגוריות שלנו</span>
+          <h2>מה תמצאו אצלנו?</h2>
+          <p>בחרו תחום כדי לראות את תתי הקטגוריות ולשלוח בקשה להצעת מחיר.</p>
+        </div>
+        <div class="cats" id="cats"></div>
+      </div>
+    </section>
+
+    <!-- ===== Why ===== -->
+    <section class="section section--alt" id="why">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">למה הכל להכל?</span>
+          <h2>שירות שעובד בשביל העסק שלך</h2>
+        </div>
+        <div class="features">
+          <div class="feature">
+            <div class="feature__icon"><svg viewBox="0 0 24 24"><use href="#i-grid"/></svg></div>
+            <h3>מגוון ענק</h3>
+            <p>מהריהוט ועד הכוס החד פעמית – כל הציוד לעסק תחת קורת גג אחת.</p>
+          </div>
+          <div class="feature">
+            <div class="feature__icon"><svg viewBox="0 0 24 24"><use href="#i-tag"/></svg></div>
+            <h3>מחירים הוגנים</h3>
+            <p>מחירים תחרותיים ללקוחות פרטיים ועסקיים, והנחות לכמויות.</p>
+          </div>
+          <div class="feature">
+            <div class="feature__icon"><svg viewBox="0 0 24 24"><use href="#i-chat"/></svg></div>
+            <h3>ייעוץ מקצועי</h3>
+            <p>נעזור לכם לבחור את הציוד המתאים לעסק, לתקציב ולמקום.</p>
+          </div>
+          <div class="feature">
+            <div class="feature__icon"><svg viewBox="0 0 24 24"><use href="#i-truck"/></svg></div>
+            <h3>זמינות ומשלוחים</h3>
+            <p>מענה מהיר בוואטסאפ ותיאום משלוח לעסק שלכם.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="section" id="about">
+      <div class="container about">
+        <div class="about__text">
+          <span class="eyebrow">אודות</span>
+          <h2>הכל להכל – הכתובת של העסקים בברטעה והסביבה</h2>
+          <p>אנחנו מספקים לבעלי עסקים את כל מה שצריך כדי לפתוח, לצייד ולהפעיל עסק: ריהוט, מדפים, מכשירים וציוד מקצועי, יחד עם מבחר רחב של מוצרים חד פעמיים לשימוש יומיומי.</p>
+          <p>בין אם אתם פותחים מסעדה, קיוסק, סופר או אטליז – או רק מחפשים כיסא משרדי טוב – אצלנו תמצאו את הפתרון.</p>
+        </div>
+        <div class="about__card">
+          <h3>שעות פעילות</h3>
+          <ul class="hours" id="hours"></ul>
+          <div class="about__addr">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg>
+            <span data-address></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section class="section section--dark" id="contact">
+      <div class="container contact">
+        <div class="contact__info">
+          <span class="eyebrow eyebrow--light">צור קשר</span>
+          <h2>נשמח לעזור לכם</h2>
+          <p>השאירו פרטים ונחזור אליכם בהקדם, או דברו איתנו ישירות בוואטסאפ.</p>
+          <ul class="contact__list">
+            <li><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg><a data-wa href="#" target="_blank" rel="noopener">שליחת הודעה בוואטסאפ</a></li>
+            <li><svg viewBox="0 0 24 24"><use href="#i-phone"/></svg><a data-tel href="#"></a></li>
+            <li><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg><a data-mail href="#"></a></li>
+            <li><svg viewBox="0 0 24 24"><use href="#i-pin"/></svg><span data-address></span></li>
+          </ul>
+        </div>
+
+        <form class="form" id="contactForm" novalidate>
+          <div class="form__row">
+            <label>שם מלא *
+              <input type="text" name="name" required autocomplete="name">
+            </label>
+            <label>טלפון *
+              <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" pattern="[0-9+\-\s]{9,15}">
+            </label>
+          </div>
+          <label>שם העסק
+            <input type="text" name="business" autocomplete="organization">
+          </label>
+          <label>תחום מבוקש
+            <select name="category" id="catSelect">
+              <option value="">בחרו קטגוריה</option>
+            </select>
+          </label>
+          <label>הודעה *
+            <textarea name="message" rows="4" required placeholder="מה אתם מחפשים? כמויות, מידות וכו׳"></textarea>
+          </label>
+          <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="btn btn--primary btn--block">שליחה</button>
+          <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <a href="#top" class="logo logo--light"><span class="logo__mark">ה</span><span class="logo__text">הכל <b>להכל</b></span></a>
+        <p class="footer__tag" data-tagline></p>
+      </div>
+      <nav class="footer__links" id="footerCats" aria-label="קטגוריות"></nav>
+      <p class="footer__copy">© <span id="year"></span> הכל להכל · ברטעה · כל הזכויות שמורות</p>
+    </div>
+  </footer>
+
+  <!-- ===== Category modal ===== -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__x" data-close aria-label="סגירה">×</button>
+      <div class="modal__icon" id="modalIcon"></div>
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+      <ul class="chips" id="modalSubs"></ul>
+      <div class="modal__actions">
+        <a class="btn btn--wa" id="modalWa" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg> שאלה בוואטסאפ
+        </a>
+        <a class="btn btn--ghost" id="modalForm" href="#contact">טופס פנייה</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Floating WhatsApp ===== -->
+  <a class="wa-float" data-wa href="#" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+  </a>
+
+  <!-- ===== SVG icons ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91A9.9 9.9 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.24 8.24 0 0 1 8.24 8.25c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></g></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></g></symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></g></symbol>
+      <symbol id="i-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.5"/></g></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></symbol>
+      <symbol id="i-truck" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></g></symbol>
+    </defs>
+  </svg>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
