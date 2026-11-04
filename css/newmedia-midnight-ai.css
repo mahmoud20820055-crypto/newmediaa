@@ -1,0 +1,283 @@
+/* ===== New Media: ثيم Midnight AI (أسود ليلي + سماوي + بنفسجي) ===== */
+/* لإلغاء الثيم: احذف كل هذا الكود من: المظهر ← تخصيص ← CSS إضافي ← نشر */
+
+:root {
+	--nm-bg: #030514;
+	--nm-bg-2: #070b24;
+	--nm-sky: #38bdf8;
+	--nm-sky-2: #0ea5e9;
+	--nm-violet: #8b5cf6;
+	--nm-violet-2: #a78bfa;
+	--nm-text: #ffffff;
+	--nm-muted: #c7d2fe;
+	--nm-glass: rgba(255, 255, 255, 0.035);
+	--nm-border: rgba(125, 160, 255, 0.22);
+	--nm-grad: linear-gradient(120deg, #38bdf8 0%, #818cf8 50%, #a78bfa 100%);
+}
+
+/* ---------- الخلفية: سماء ليلية + شفق متحرك + شبكة عصبية + أرضية رقمية ---------- */
+html, body { background-color: var(--nm-bg) !important; }
+body {
+	background-image:
+		radial-gradient(1200px 700px at 50% -20%, rgba(76, 29, 149, 0.35), transparent 60%),
+		linear-gradient(180deg, #030514 0%, #070b24 45%, #030514 100%) !important;
+	background-attachment: fixed !important;
+	color: var(--nm-text) !important;
+}
+
+/* 1) الشفق (Aurora): كتل ضوئية سماوية وبنفسجية بتتحرك ببطء */
+body::before {
+	content: "";
+	position: fixed;
+	inset: -25%;
+	background:
+		radial-gradient(35% 30% at 20% 25%, rgba(56, 189, 248, 0.55), transparent 70%),
+		radial-gradient(30% 28% at 80% 20%, rgba(139, 92, 246, 0.55), transparent 70%),
+		radial-gradient(28% 26% at 70% 75%, rgba(14, 165, 233, 0.40), transparent 70%),
+		radial-gradient(26% 24% at 25% 80%, rgba(167, 139, 250, 0.35), transparent 70%);
+	filter: blur(70px) saturate(140%);
+	opacity: 0.55;
+	animation: nm-aurora 28s ease-in-out infinite alternate;
+	pointer-events: none;
+	z-index: 0;
+}
+@keyframes nm-aurora {
+	0%   { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+	50%  { transform: translate3d(4%, -3%, 0) rotate(12deg) scale(1.08); }
+	100% { transform: translate3d(-4%, 3%, 0) rotate(-10deg) scale(1.02); }
+}
+
+/* 2) الشبكة العصبية: نقاط مضيئة متل خريطة ذكاء اصطناعي */
+html::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	background-image:
+		radial-gradient(rgba(148, 197, 255, 0.55) 1px, transparent 1.6px),
+		radial-gradient(rgba(167, 139, 250, 0.35) 1px, transparent 1.6px);
+	background-size: 38px 38px, 76px 76px;
+	background-position: 0 0, 19px 19px;
+	-webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
+	mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
+	opacity: 0.35;
+	animation: nm-pulse 6s ease-in-out infinite;
+	pointer-events: none;
+	z-index: 0;
+}
+@keyframes nm-pulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.45; } }
+
+/* 3) الأرضية الرقمية: شبكة منظورية بتتحرك لقدّام (إحساس 3D) */
+body::after {
+	content: "";
+	position: fixed;
+	left: -50%;
+	right: -50%;
+	bottom: -8%;
+	height: 50vh;
+	background-image:
+		linear-gradient(rgba(56, 189, 248, 0.35) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(139, 92, 246, 0.30) 1px, transparent 1px);
+	background-size: 70px 70px;
+	transform: perspective(420px) rotateX(64deg);
+	transform-origin: bottom;
+	-webkit-mask-image: linear-gradient(to top, #000 5%, transparent 80%);
+	mask-image: linear-gradient(to top, #000 5%, transparent 80%);
+	animation: nm-grid 3.5s linear infinite;
+	pointer-events: none;
+	z-index: 0;
+}
+@keyframes nm-grid { from { background-position: 0 0, 0 0; } to { background-position: 0 70px, 0 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+	body::before, body::after, html::before { animation: none !important; }
+}
+
+/* ---------- إزالة الخلفيات الفاتحة عن الأقسام ---------- */
+.website-wrapper, .main-page-wrapper, .site-content, .page-title,
+.wd-page-content, .elementor, .elementor-section, .e-con, .e-con-inner,
+.elementor-column-wrap, .elementor-widget-wrap, .elementor-widget-container,
+.blog-post-loop, .wd-post-inner, .post-single-page, .wd-portfolio-holder,
+.wd-tab-content-wrapper, .wd-tabs-content, .comments-area {
+	background-color: transparent !important;
+	position: relative;
+	z-index: 1;
+}
+body .elementor .elementor-section.elementor-element,
+body .elementor .e-con.elementor-element,
+body .elementor .elementor-column > .elementor-widget-wrap,
+body .elementor .elementor-column > .elementor-element-populated {
+	background-color: transparent !important;
+}
+
+/* ---------- الهيدر: زجاج ليلي مع خط متدرّج ---------- */
+.whb-header .whb-row, .whb-header .whb-general-header,
+.whb-header .whb-top-bar, .whb-header .whb-header-bottom,
+.whb-sticky-prepared .whb-row, .whb-sticked .whb-row {
+	background-color: rgba(3, 5, 20, 0.72) !important;
+	-webkit-backdrop-filter: blur(16px) saturate(140%);
+	backdrop-filter: blur(16px) saturate(140%);
+	border-color: transparent !important;
+}
+.whb-header .whb-general-header {
+	box-shadow: 0 1px 0 rgba(56, 189, 248, 0.35), 0 12px 40px rgba(139, 92, 246, 0.12) !important;
+}
+
+/* ---------- النصوص ---------- */
+body, p, li, span, label, td, th, blockquote, figcaption,
+h1, h2, h3, h4, h5, h6, .title, .wd-entities-title, .wd-entities-title a,
+.elementor-heading-title, .elementor-widget-text-editor,
+.wd-list-content, .wd-nav > li > a, .wd-nav-main > li > a,
+.whb-header .wd-tools-element > a, .wd-tools-icon,
+.entry-content, .post-title a, .page-title .title, .breadcrumbs a,
+.wd-tabs-title, .wd-nav-tabs > li > a, .portfolio-entry a {
+	color: var(--nm-text) !important;
+}
+p, .elementor-widget-text-editor, .entry-content, .wd-post-excerpt, .wd-entities-desc,
+.portfolio-info, .post-meta, .wd-post-date, .meta-author {
+	color: var(--nm-muted) !important;
+}
+
+/* العناوين الكبيرة: نص متدرّج سماوي ← بنفسجي (ستايل AI) */
+h1.elementor-heading-title, h2.elementor-heading-title,
+.page-title .title, .elementor-widget-heading h2 {
+	background: var(--nm-grad);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent !important;
+	filter: drop-shadow(0 0 18px rgba(129, 140, 248, 0.35));
+}
+h3.elementor-heading-title, h4.elementor-heading-title {
+	text-shadow: 0 0 18px rgba(56, 189, 248, 0.25);
+}
+
+a:hover, .wd-nav > li.current-menu-item > a, .wd-nav > li > a:hover,
+.wd-nav-tabs > li.wd-active > a, .wd-tabs-title.wd-active {
+	color: var(--nm-sky) !important;
+}
+
+/* ---------- البطاقات: زجاج داكن + إطار مضيء + حركة 3D ---------- */
+.portfolio-entry .portfolio-entry-inner, .wd-post, .blog-post-loop,
+.bdt-review-card, .bdt-review-card-carousel .swiper-slide > div,
+.wd-tabs .wd-tab-content, .elementor-widget-wd_list .wd-list,
+body .tlp-portfolio-item, body .article-inner {
+	background: linear-gradient(160deg, rgba(56, 189, 248, 0.06), rgba(139, 92, 246, 0.05) 60%, rgba(255, 255, 255, 0.02)) !important;
+	border: 1px solid var(--nm-border) !important;
+	border-radius: 18px !important;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+	transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, border-color .4s ease;
+	overflow: hidden;
+}
+.portfolio-entry:hover .portfolio-entry-inner, .wd-post:hover,
+body .tlp-portfolio-item:hover, body .article-inner:hover {
+	transform: perspective(900px) translateY(-8px) rotateX(4deg);
+	border-color: rgba(167, 139, 250, 0.55) !important;
+	box-shadow: 0 30px 70px -20px rgba(56, 189, 248, 0.35), 0 0 0 1px rgba(139, 92, 246, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+body .tlp-portfolio-item, body .tlp-portfolio-item * { color: #fff !important; }
+body .tlp-portfolio-item p, body .tlp-portfolio-item .tlp-portfolio-sd { color: var(--nm-muted) !important; }
+body .tlp-portfolio-thum { background-color: #0a0f2c !important; }
+body .article-inner .post-date, body .article-inner .wd-post-date { background: #0a0f2c !important; color: #fff !important; }
+
+html body .blog-design-masonry .article-inner,
+html body .wd-post .article-inner,
+html body article .article-inner {
+	background: linear-gradient(160deg, rgba(56, 189, 248, 0.06), rgba(139, 92, 246, 0.05) 60%, rgba(255, 255, 255, 0.02)) !important;
+	background-color: #0a0f2c !important;
+}
+
+/* ---------- تبويبات الخدمات ---------- */
+body .elementor-widget-wd_tabs li > a,
+body .wd-nav-tabs li > a,
+body .elementor-widget-wd_tabs li > a > *,
+body .wd-nav-tabs li > a > * {
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+body .elementor-widget-wd_tabs li,
+body .wd-nav-tabs li {
+	background-color: rgba(255, 255, 255, 0.04) !important;
+	border: 1px solid var(--nm-border) !important;
+	color: #fff !important;
+	transition: all .3s ease;
+}
+body .elementor-widget-wd_tabs li:hover, body .wd-nav-tabs li:hover {
+	border-color: rgba(167, 139, 250, 0.6) !important;
+	box-shadow: 0 0 24px -6px rgba(139, 92, 246, 0.6);
+}
+body .elementor-widget-wd_tabs li.wd-active,
+body .wd-nav-tabs li.wd-active {
+	background: var(--nm-grad) !important;
+	border-color: transparent !important;
+	box-shadow: 0 10px 30px -8px rgba(129, 140, 248, 0.7) !important;
+}
+body .elementor-widget-wd_tabs li.wd-active *, body .wd-nav-tabs li.wd-active * { color: #fff !important; }
+
+/* ---------- الأزرار: تدرّج سماوي ← بنفسجي بيلمع ---------- */
+.btn, .button, .wd-button-wrapper a, button[type="submit"], input[type="submit"],
+.elementor-button, .wpforms-submit {
+	background: var(--nm-grad) !important;
+	background-size: 200% 100% !important;
+	color: #fff !important;
+	border: 0 !important;
+	border-radius: 12px !important;
+	box-shadow: 0 10px 30px -8px rgba(129, 140, 248, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+	transition: background-position .5s ease, transform .3s ease, box-shadow .3s ease !important;
+}
+.btn:hover, .button:hover, .wd-button-wrapper a:hover, button[type="submit"]:hover,
+input[type="submit"]:hover, .elementor-button:hover, .wpforms-submit:hover {
+	background-position: 100% 0 !important;
+	transform: translateY(-2px);
+	box-shadow: 0 16px 40px -8px rgba(139, 92, 246, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+/* ---------- النماذج ---------- */
+body input:not([type="submit"]), body textarea, body select,
+html body textarea[id^="wpforms-"][id^="wpforms-"], html body #wpforms-10670-field_3,
+html body div.wpforms-container-full .wpforms-form textarea,
+html body div.wpforms-container-full .wpforms-form input[type=text],
+html body div.wpforms-container-full .wpforms-form input[type=email],
+html body div.wpforms-container-full .wpforms-form input[type=tel] {
+	background-color: rgba(255, 255, 255, 0.04) !important;
+	color: #fff !important;
+	border: 1px solid var(--nm-border) !important;
+	border-radius: 12px !important;
+}
+body input:not([type="submit"]):focus, body textarea:focus {
+	border-color: var(--nm-violet-2) !important;
+	box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25) !important;
+	outline: none !important;
+}
+input::placeholder, textarea::placeholder { color: #8b93c9 !important; }
+
+/* ---------- القائمة الجانبية على الموبايل ---------- */
+body .mobile-nav, body .wd-side-hidden { background-color: #050826 !important; color: #fff !important; }
+body .mobile-nav a, body .mobile-nav .nav-link-text, body .wd-side-hidden a,
+body .wd-nav .nav-link-text, body .wd-heading .close-side-widget, body .close-side-widget a,
+body .wd-side-hidden .wd-heading * { color: #fff !important; }
+
+/* ---------- الفوتر ---------- */
+.footer-container, .wd-prefooter, .copyrights-wrapper {
+	background: rgba(3, 5, 20, 0.82) !important;
+	border-top: 1px solid rgba(129, 140, 248, 0.25);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	position: relative;
+	z-index: 1;
+}
+body .elementor-social-icon, body .wd-social-icons a, body .social-icons a {
+	background: rgba(129, 140, 248, 0.12) !important;
+	border: 1px solid var(--nm-border) !important;
+	border-radius: 12px !important;
+}
+body .elementor-social-icon i, body .elementor-social-icon svg { color: var(--nm-sky) !important; fill: var(--nm-sky) !important; }
+
+/* شريط التمرير */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #030514; }
+::-webkit-scrollbar-thumb { background: linear-gradient(#38bdf8, #8b5cf6); border-radius: 10px; }
+::selection { background: rgba(139, 92, 246, 0.45); color: #fff; }
+/* ===== نهاية ثيم New Media Midnight AI ===== */

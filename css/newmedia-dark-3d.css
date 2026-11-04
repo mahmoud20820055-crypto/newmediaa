@@ -1,0 +1,209 @@
+/* ===== New Media: ثيم أسود فخم مع أزرق سماوي (3D) ===== */
+/* لإلغاء الثيم: احذف كل هذا الكود من: المظهر ← تخصيص ← CSS إضافي */
+
+:root {
+	--nm-bg: #05070d;
+	--nm-sky: #38bdf8;
+	--nm-sky-2: #0ea5e9;
+	--nm-text: #ffffff;
+	--nm-muted: #cbd5e1;
+	--nm-glass: rgba(255, 255, 255, 0.04);
+	--nm-border: rgba(56, 189, 248, 0.25);
+}
+
+/* الخلفية: أسود عميق + توهّج سماوي + شبكة منظورية تعطي إحساس 3D */
+html, body {
+	background-color: var(--nm-bg) !important;
+}
+body {
+	background-image:
+		radial-gradient(900px 600px at 85% -10%, rgba(56, 189, 248, 0.28), transparent 60%),
+		radial-gradient(700px 500px at -10% 40%, rgba(14, 165, 233, 0.18), transparent 60%),
+		radial-gradient(800px 600px at 110% 90%, rgba(56, 189, 248, 0.14), transparent 60%),
+		linear-gradient(180deg, #05070d 0%, #071225 55%, #05070d 100%) !important;
+	background-attachment: fixed !important;
+	color: var(--nm-text) !important;
+}
+body::before {
+	content: "";
+	position: fixed;
+	inset: auto -50% -10% -50%;
+	height: 55vh;
+	background-image:
+		linear-gradient(rgba(56, 189, 248, 0.22) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(56, 189, 248, 0.22) 1px, transparent 1px);
+	background-size: 60px 60px;
+	transform: perspective(500px) rotateX(62deg);
+	transform-origin: bottom;
+	-webkit-mask-image: linear-gradient(to top, #000 10%, transparent 85%);
+	mask-image: linear-gradient(to top, #000 10%, transparent 85%);
+	pointer-events: none;
+	z-index: 0;
+}
+
+/* إزالة الخلفيات البيضاء/الفاتحة عن أقسام الصفحات */
+.website-wrapper, .main-page-wrapper, .site-content, .page-title,
+.wd-page-content, .elementor, .elementor-section, .e-con, .e-con-inner,
+.elementor-column-wrap, .elementor-widget-wrap, .elementor-widget-container,
+.blog-post-loop, .wd-post-inner, .post-single-page, .wd-portfolio-holder,
+.wd-tab-content-wrapper, .wd-tabs-content, .comments-area {
+	background-color: transparent !important;
+	position: relative;
+	z-index: 1;
+}
+
+/* أقسام Elementor اللي إلها لون خلفية خاص */
+body .elementor .elementor-section.elementor-element,
+body .elementor .e-con.elementor-element,
+body .elementor .elementor-column > .elementor-widget-wrap,
+body .elementor .elementor-column > .elementor-element-populated {
+	background-color: transparent !important;
+}
+
+/* أزرار تبويبات الخدمات */
+body .elementor-widget-wd_tabs li,
+body .wd-nav-tabs li,
+body .wd-nav-tabs li > a {
+	background-color: rgba(255, 255, 255, 0.05) !important;
+	border: 1px solid var(--nm-border) !important;
+	color: #fff !important;
+}
+body .elementor-widget-wd_tabs li.wd-active,
+body .wd-nav-tabs li.wd-active {
+	background: linear-gradient(135deg, var(--nm-sky), var(--nm-sky-2)) !important;
+	box-shadow: 0 8px 24px -6px rgba(56, 189, 248, 0.6) !important;
+}
+body .elementor-widget-wd_tabs li.wd-active *, body .wd-nav-tabs li.wd-active * { color: #001018 !important; }
+
+/* بطاقات معرض الأعمال */
+body .tlp-portfolio-item {
+	background: var(--nm-glass) !important;
+	border: 1px solid var(--nm-border) !important;
+	border-radius: 16px !important;
+	overflow: hidden;
+	box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8);
+	transition: transform .35s ease, box-shadow .35s ease;
+}
+body .tlp-portfolio-item:hover {
+	transform: perspective(900px) translateY(-6px) rotateX(3deg);
+	box-shadow: 0 30px 60px -20px rgba(56, 189, 248, 0.35);
+}
+body .tlp-portfolio-item, body .tlp-portfolio-item * { color: #fff !important; }
+body .tlp-portfolio-item p, body .tlp-portfolio-item .tlp-portfolio-sd { color: var(--nm-muted) !important; }
+body .tlp-portfolio-thum { background-color: #0b1220 !important; }
+
+/* القائمة الجانبية على الموبايل */
+body .mobile-nav, body .wd-side-hidden {
+	background-color: #070b14 !important;
+	color: #fff !important;
+}
+body .mobile-nav a { color: #fff !important; }
+
+/* الهيدر: أسود زجاجي مع خط سماوي */
+.whb-header .whb-row, .whb-header .whb-general-header,
+.whb-header .whb-top-bar, .whb-header .whb-header-bottom,
+.whb-sticky-prepared .whb-row, .whb-sticked .whb-row {
+	background-color: rgba(5, 7, 13, 0.85) !important;
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	border-color: transparent !important;
+}
+.whb-header .whb-general-header {
+	box-shadow: 0 1px 0 var(--nm-border), 0 10px 30px rgba(56, 189, 248, 0.08) !important;
+}
+
+/* كل النصوص الغامقة تصبح بيضاء */
+body, p, li, span, label, td, th, blockquote, figcaption,
+h1, h2, h3, h4, h5, h6, .title, .wd-entities-title, .wd-entities-title a,
+.elementor-heading-title, .elementor-widget-text-editor,
+.wd-list-content, .wd-nav > li > a, .wd-nav-main > li > a,
+.whb-header .wd-tools-element > a, .wd-tools-icon,
+.entry-content, .post-title a, .page-title .title, .breadcrumbs a,
+.wd-tabs-title, .wd-nav-tabs > li > a, .portfolio-entry a {
+	color: var(--nm-text) !important;
+}
+p, .elementor-widget-text-editor, .entry-content, .wd-post-excerpt, .wd-entities-desc,
+.portfolio-info, .post-meta, .wd-post-date, .meta-author {
+	color: var(--nm-muted) !important;
+}
+
+/* العناوين الرئيسية: لمعة سماوية */
+.elementor-heading-title, h1, h2 {
+	text-shadow: 0 0 22px rgba(56, 189, 248, 0.35);
+}
+
+/* الروابط والعناصر النشطة بالأزرق السماوي */
+a:hover, .wd-nav > li.current-menu-item > a, .wd-nav > li > a:hover,
+.wd-nav-tabs > li.wd-active > a, .wd-tabs-title.wd-active {
+	color: var(--nm-sky) !important;
+}
+
+/* البطاقات (المشاريع، المقالات، الآراء): زجاج داكن ثلاثي الأبعاد */
+.portfolio-entry .portfolio-entry-inner, .wd-post, .blog-post-loop,
+.bdt-review-card, .bdt-review-card-carousel .swiper-slide > div,
+.wd-tabs .wd-tab-content, .elementor-widget-wd_list .wd-list {
+	background: var(--nm-glass) !important;
+	border: 1px solid var(--nm-border) !important;
+	border-radius: 16px;
+	box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+	transition: transform .35s ease, box-shadow .35s ease;
+}
+.portfolio-entry:hover .portfolio-entry-inner, .wd-post:hover {
+	transform: perspective(900px) translateY(-6px) rotateX(3deg);
+	box-shadow: 0 30px 60px -20px rgba(56, 189, 248, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* الأزرار */
+.btn, .button, .wd-button-wrapper a, button[type="submit"], input[type="submit"],
+.elementor-button, .wpforms-submit {
+	background: linear-gradient(135deg, var(--nm-sky), var(--nm-sky-2)) !important;
+	color: #001018 !important;
+	border: 0 !important;
+	border-radius: 10px !important;
+	box-shadow: 0 8px 24px -6px rgba(56, 189, 248, 0.6) !important;
+}
+
+/* حقول النماذج */
+body input:not([type="submit"]), body textarea, body select,
+body .wpforms-field input, body .wpforms-field textarea, body textarea.wpforms-field-large {
+	background: rgba(255, 255, 255, 0.05) !important;
+	color: #fff !important;
+	border: 1px solid var(--nm-border) !important;
+	border-radius: 10px !important;
+}
+input::placeholder, textarea::placeholder { color: #94a3b8 !important; }
+
+html body textarea[id^="wpforms-"][id^="wpforms-"], html body #wpforms-10670-field_3,
+html body div.wpforms-container-full .wpforms-form textarea,
+html body div.wpforms-container-full .wpforms-form input[type=text],
+html body div.wpforms-container-full .wpforms-form input[type=email],
+html body div.wpforms-container-full .wpforms-form input[type=tel] {
+	background-color: rgba(255, 255, 255, 0.05) !important;
+	color: #fff !important;
+	border: 1px solid var(--nm-border) !important;
+}
+
+/* الفوتر */
+.footer-container, .wd-prefooter, .copyrights-wrapper {
+	background: rgba(2, 4, 8, 0.85) !important;
+	border-top: 1px solid var(--nm-border);
+	position: relative;
+	z-index: 1;
+}
+/* بطاقات المدونة */
+body .article-inner, body .blog-design-masonry .article-inner, body .wd-post .article-inner {
+	background: var(--nm-glass) !important;
+	border: 1px solid var(--nm-border) !important;
+	border-radius: 16px !important;
+	overflow: hidden;
+}
+body .article-inner .post-date, body .article-inner .wd-post-date { background: #0b1220 !important; color: #fff !important; }
+
+/* أيقونات السوشيال ميديا */
+body .elementor-social-icon, body .wd-social-icons a, body .social-icons a {
+	background: rgba(56, 189, 248, 0.12) !important;
+	border: 1px solid var(--nm-border) !important;
+	border-radius: 10px !important;
+}
+body .elementor-social-icon i, body .elementor-social-icon svg { color: var(--nm-sky) !important; fill: var(--nm-sky) !important; }
+/* ===== نهاية ثيم New Media ===== */

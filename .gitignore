@@ -1,0 +1,9 @@
+backups/
+*.sql
+*.sql.gz
+*.gz
+*.zip
+.wpauth
+.env
+node_modules/
+__pycache__/
