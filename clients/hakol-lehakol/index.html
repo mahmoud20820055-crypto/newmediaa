@@ -25,6 +25,7 @@
         <a href="#why">למה אנחנו</a>
         <a href="#about">אודות</a>
         <a href="#contact">צור קשר</a>
+        <a href="my.html" class="nav__my">הפניות שלי</a>
       </nav>
       <a class="btn btn--wa btn--sm header__cta" data-wa href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
@@ -133,7 +134,7 @@
         <div class="contact__info">
           <span class="eyebrow eyebrow--light">צור קשר</span>
           <h2>נשמח לעזור לכם</h2>
-          <p>השאירו פרטים ונחזור אליכם בהקדם, או דברו איתנו ישירות בוואטסאפ.</p>
+          <p>השאירו פרטים ונחזור אליכם בהקדם, או דברו איתנו ישירות בוואטסאפ. את התשובה שלנו תוכלו לראות בצ׳אט באתר ובעמוד <a href="my.html">הפניות שלי</a>.</p>
           <ul class="contact__list">
             <li><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg><a data-wa href="#" target="_blank" rel="noopener">שליחת הודעה בוואטסאפ</a></li>
             <li><svg viewBox="0 0 24 24"><use href="#i-phone"/></svg><a data-tel href="#"></a></li>
@@ -200,6 +201,44 @@
     </div>
   </div>
 
+  <!-- ===== Chat widget ===== -->
+  <button class="chat-fab" id="chatFab" aria-label="צ׳אט עם הכל להכל" aria-expanded="false" aria-controls="chat">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg>
+    <span class="chat-fab__badge" id="chatBadge" hidden></span>
+  </button>
+  <section class="chat" id="chat" hidden aria-label="צ׳אט">
+    <header class="chat__head">
+      <span class="logo__mark">ה</span>
+      <div>
+        <b>הכל להכל</b>
+        <small>שלחו הודעה ונחזור אליכם בהקדם</small>
+      </div>
+      <button class="chat__x" id="chatClose" aria-label="סגירה">×</button>
+    </header>
+    <form class="chat__start" id="chatStart" novalidate>
+      <p>שלום! 👋 השאירו פרטים והודעה, והצוות שלנו יענה לכם כאן.</p>
+      <input name="name" placeholder="שם מלא *" required autocomplete="name">
+      <input name="phone" type="tel" placeholder="טלפון *" required inputmode="tel" pattern="[0-9+\-\s]{9,20}" autocomplete="tel">
+      <textarea name="message" rows="3" placeholder="איך אפשר לעזור? *" required></textarea>
+      <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn btn--primary btn--block" type="submit">התחלת שיחה</button>
+      <p class="chat__err" role="alert"></p>
+    </form>
+    <div class="chat__thread" id="chatThreadWrap" hidden>
+      <div class="chat__msgs" id="chatMsgs" aria-live="polite"></div>
+      <form class="chat__send" id="chatSend">
+        <textarea name="message" rows="1" placeholder="כתבו הודעה…" required aria-label="הודעה"></textarea>
+        <button type="submit" aria-label="שליחה"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 12 21 3l-6 18-3-7-9-2Z"/></svg></button>
+      </form>
+      <p class="chat__err" role="alert"></p>
+    </div>
+    <footer class="chat__foot">
+      <a href="my.html">כל הפניות שלי</a>
+      <button type="button" id="chatNew">פנייה חדשה</button>
+      <a data-wa href="#" target="_blank" rel="noopener">וואטסאפ</a>
+    </footer>
+  </section>
+
   <!-- ===== Floating WhatsApp ===== -->
   <a class="wa-float" data-wa href="#" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ">
     <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
@@ -220,6 +259,7 @@
   </svg>
 
   <script src="js/config.js"></script>
+  <script src="js/chat.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

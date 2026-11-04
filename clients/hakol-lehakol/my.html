@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>הפניות שלי | הכל להכל</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0f3d5e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/my.css">
+</head>
+<body class="my">
+  <header class="header is-scrolled">
+    <div class="container header__inner">
+      <a href="index.html" class="logo" aria-label="הכל להכל – לדף הבית">
+        <span class="logo__mark">ה</span>
+        <span class="logo__text">הכל <b>להכל</b></span>
+      </a>
+      <a href="index.html" class="btn btn--ghost btn--sm my__back">→ חזרה לאתר</a>
+    </div>
+  </header>
+
+  <main class="container my__main">
+    <div class="my__head">
+      <div>
+        <h1>הפניות שלי</h1>
+        <p>כאן תוכלו לראות את כל הפניות ששלחתם, את התשובות שלנו, ולהמשיך את השיחה.</p>
+      </div>
+      <a href="index.html#contact" class="btn btn--primary">+ פנייה חדשה</a>
+    </div>
+
+    <div class="my__stats" id="myStats"></div>
+
+    <div class="my__grid" id="myGrid">
+      <aside class="my__list" id="myList" aria-label="רשימת פניות"></aside>
+      <section class="my__thread" id="myThread" aria-label="שיחה">
+        <div class="my__empty" id="myPick">בחרו פנייה מהרשימה כדי לראות את השיחה.</div>
+        <div class="my__conv" id="myConv" hidden>
+          <div class="my__convhead">
+            <button class="my__backlist" id="backList" aria-label="חזרה לרשימה">→</button>
+            <div>
+              <b id="convTitle"></b>
+              <small id="convMeta"></small>
+            </div>
+            <span class="pill" id="convStatus"></span>
+          </div>
+          <div class="chat__msgs" id="myMsgs" aria-live="polite"></div>
+          <form class="chat__send" id="mySend">
+            <textarea name="message" rows="1" placeholder="כתבו הודעה…" required aria-label="הודעה"></textarea>
+            <button type="submit" aria-label="שליחה"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 12 21 3l-6 18-3-7-9-2Z"/></svg></button>
+          </form>
+          <p class="chat__err" id="myErr" role="alert"></p>
+        </div>
+      </section>
+    </div>
+
+    <div class="my__none" id="myNone" hidden>
+      <div class="my__noneicon">💬</div>
+      <h2>עדיין אין פניות</h2>
+      <p>ברגע שתשלחו לנו הודעה דרך האתר, היא תופיע כאן יחד עם התשובות שלנו.</p>
+      <a href="index.html#contact" class="btn btn--primary">שליחת פנייה</a>
+      <a data-wa href="#" target="_blank" rel="noopener" class="btn btn--wa">וואטסאפ</a>
+    </div>
+
+    <p class="my__note">🔒 הפניות שמורות במכשיר ובדפדפן הזה בלבד. לשיחה ממכשיר אחר – פנו אלינו בוואטסאפ.</p>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/my.js"></script>
+</body>
+</html>

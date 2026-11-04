@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>לוח ניהול | הכל להכל</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0a2a42">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="adm">
+
+  <!-- ===== Auth ===== -->
+  <section class="auth" id="auth" hidden>
+    <form class="auth__box" id="authForm" novalidate>
+      <div class="auth__logo"><span class="logo__mark">ה</span><span class="logo__text">הכל <b>להכל</b></span></div>
+      <h1 id="authTitle">כניסה ללוח הניהול</h1>
+      <p id="authHint"></p>
+      <label data-setup hidden>מפתח הגדרה
+        <input name="setup_key" type="password" autocomplete="off">
+      </label>
+      <label>סיסמה
+        <input name="password" type="password" autocomplete="current-password" required>
+      </label>
+      <label data-setup hidden>אימות סיסמה
+        <input name="password2" type="password" autocomplete="new-password">
+      </label>
+      <button class="btn btn--primary btn--block" type="submit" id="authBtn">כניסה</button>
+      <p class="auth__err" id="authErr" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- ===== App ===== -->
+  <div class="app" id="app" hidden>
+    <aside class="side">
+      <div class="side__logo"><span class="logo__mark">ה</span><span class="logo__text">הכל <b>להכל</b></span></div>
+      <nav class="side__nav">
+        <button data-view="dash" class="is-active"><svg viewBox="0 0 24 24"><use href="#a-home"/></svg><span>לוח בקרה</span></button>
+        <button data-view="inbox"><svg viewBox="0 0 24 24"><use href="#a-inbox"/></svg><span>פניות</span><i class="side__badge" id="navBadge" hidden></i></button>
+        <button data-view="settings"><svg viewBox="0 0 24 24"><use href="#a-cog"/></svg><span>הגדרות</span></button>
+      </nav>
+      <div class="side__foot">
+        <a href="../index.html" target="_blank"><svg viewBox="0 0 24 24"><use href="#a-ext"/></svg><span>לאתר</span></a>
+        <button id="logout"><svg viewBox="0 0 24 24"><use href="#a-out"/></svg><span>יציאה</span></button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- Dashboard -->
+      <section class="view" id="view-dash">
+        <header class="view__head">
+          <div><h1>לוח בקרה</h1><p id="hello"></p></div>
+        </header>
+        <div class="kpis" id="kpis"></div>
+        <div class="cards">
+          <div class="card">
+            <h2>פניות ב-7 הימים האחרונים</h2>
+            <div class="bars" id="bars"></div>
+          </div>
+          <div class="card">
+            <h2>פניות לפי תחום</h2>
+            <div class="hbars" id="byCat"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__head"><h2>פניות אחרונות</h2><button class="link" data-view="inbox">לכל הפניות ←</button></div>
+          <div class="recent" id="recent"></div>
+        </div>
+      </section>
+
+      <!-- Inbox -->
+      <section class="view" id="view-inbox" hidden>
+        <div class="inbox" id="inbox">
+          <div class="inbox__list">
+            <div class="inbox__tools">
+              <input type="search" id="q" placeholder="חיפוש לפי שם, טלפון או הודעה…" aria-label="חיפוש">
+              <div class="tabs" id="filters" role="tablist">
+                <button data-f="" class="is-active">הכל</button>
+                <button data-f="unread">לא נקראו</button>
+                <button data-f="open">פתוחות</button>
+                <button data-f="closed">טופלו</button>
+              </div>
+            </div>
+            <div class="convs" id="convs"></div>
+          </div>
+          <div class="inbox__thread">
+            <div class="empty" id="pick">
+              <svg viewBox="0 0 24 24"><use href="#a-inbox"/></svg>
+              <p>בחרו פנייה מהרשימה</p>
+            </div>
+            <div class="conv" id="conv" hidden>
+              <header class="conv__head">
+                <button class="conv__back" id="convBack" aria-label="חזרה">→</button>
+                <div class="conv__who">
+                  <b id="cName"></b>
+                  <small id="cMeta"></small>
+                </div>
+                <div class="conv__actions">
+                  <a class="ibtn ibtn--wa" id="cWa" target="_blank" rel="noopener" title="וואטסאפ ללקוח"><svg viewBox="0 0 24 24"><use href="#a-wa"/></svg></a>
+                  <a class="ibtn" id="cTel" title="התקשרות"><svg viewBox="0 0 24 24"><use href="#a-phone"/></svg></a>
+                  <button class="btn btn--sm btn--ghost" id="cStatus"></button>
+                  <button class="ibtn ibtn--danger" id="cDel" title="מחיקה"><svg viewBox="0 0 24 24"><use href="#a-trash"/></svg></button>
+                </div>
+              </header>
+              <div class="conv__info" id="cInfo"></div>
+              <div class="chat__msgs" id="cMsgs" aria-live="polite"></div>
+              <div class="quick" id="quick"></div>
+              <form class="chat__send" id="cSend">
+                <textarea name="message" rows="2" placeholder="כתבו תשובה ללקוח… (Enter לשליחה, Shift+Enter לשורה חדשה)" required aria-label="תשובה"></textarea>
+                <button type="submit" aria-label="שליחה"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 12 21 3l-6 18-3-7-9-2Z"/></svg></button>
+              </form>
+              <p class="chat__err" id="cErr" role="alert"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings -->
+      <section class="view" id="view-settings" hidden>
+        <header class="view__head"><div><h1>הגדרות</h1><p>הודעה אוטומטית וסיסמה</p></div></header>
+        <div class="cards">
+          <form class="card" id="arForm">
+            <h2>הודעה אוטומטית ללקוח</h2>
+            <p class="muted">נשלחת מיד אחרי שהלקוח שולח פנייה חדשה. אפשר להשתמש ב:
+              <code>{name}</code> שם הלקוח · <code>{site}</code> שם העסק · <code>{whatsapp}</code> קישור לוואטסאפ</p>
+            <textarea name="auto_reply" rows="7" required></textarea>
+            <h3 class="muted-h">תצוגה מקדימה</h3>
+            <div class="chat__msgs preview"><div id="arPreview"></div></div>
+            <button class="btn btn--primary" type="submit">שמירה</button>
+            <span class="saved" id="arSaved"></span>
+          </form>
+          <form class="card" id="pwForm" novalidate>
+            <h2>שינוי סיסמה</h2>
+            <label>סיסמה נוכחית<input name="current" type="password" autocomplete="current-password" required></label>
+            <label>סיסמה חדשה (8 תווים לפחות)<input name="new" type="password" autocomplete="new-password" required minlength="8"></label>
+            <button class="btn btn--primary" type="submit">עדכון סיסמה</button>
+            <span class="saved" id="pwSaved"></span>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="a-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></g></symbol>
+      <symbol id="a-inbox" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11Z"/></g></symbol>
+      <symbol id="a-cog" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></g></symbol>
+      <symbol id="a-ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></symbol>
+      <symbol id="a-out" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+      <symbol id="a-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></symbol>
+      <symbol id="a-trash" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></symbol>
+      <symbol id="a-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91A9.9 9.9 0 0 0 12.04 2Zm4.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></symbol>
+    </defs>
+  </svg>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/chat.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

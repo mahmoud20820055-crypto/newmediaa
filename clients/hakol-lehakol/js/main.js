@@ -110,6 +110,88 @@
   function onScroll() { header.classList.toggle("is-scrolled", window.scrollY > 10); }
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
+  /* ---------- Chat widget ---------- */
+  var C = window.HLChat;
+  var chat = $("#chat"), fab = $("#chatFab"), badge = $("#chatBadge");
+  var startForm = $("#chatStart"), threadWrap = $("#chatThreadWrap"), msgsBox = $("#chatMsgs"), sendForm = $("#chatSend");
+  var thread = null, threadToken = null, unread = 0;
+
+  function setBadge(n) { unread = n; badge.hidden = !n; badge.textContent = n > 9 ? "9+" : n; }
+  function showStart() {
+    if (thread) thread.stop();
+    thread = null; threadToken = null;
+    startForm.hidden = false; threadWrap.hidden = true;
+  }
+  function showThread(token, initial) {
+    if (thread && threadToken === token) return;
+    if (thread) thread.stop();
+    threadToken = token;
+    startForm.hidden = true; threadWrap.hidden = false;
+    thread = C.Thread(msgsBox, token, {
+      forceScroll: true,
+      onNew: function (msgs) {
+        if (chat.hidden && msgs.some(function (m) { return m.sender === "admin"; })) setBadge(unread + 1);
+      },
+      onGone: showStart
+    });
+    if (initial) thread.append(initial);
+    thread.start(chat.hidden ? 30000 : 6000);
+  }
+  function openChat() {
+    chat.hidden = false; fab.setAttribute("aria-expanded", "true"); setBadge(0);
+    var list = C.list();
+    if (list.length) { showThread(list[0].token); thread.start(6000); } else showStart();
+    var f = chat.querySelector(threadWrap.hidden ? "#chatStart [name=name]" : "#chatSend textarea"); if (f) f.focus();
+  }
+  function closeChat() {
+    chat.hidden = true; fab.setAttribute("aria-expanded", "false");
+    if (thread) thread.start(30000);
+  }
+  fab.addEventListener("click", function () { chat.hidden ? openChat() : closeChat(); });
+  $("#chatClose").addEventListener("click", closeChat);
+  $("#chatNew").addEventListener("click", function () { showStart(); startForm.name.focus(); });
+
+
+  startForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var err = startForm.querySelector(".chat__err");
+    if (!startForm.checkValidity()) { err.textContent = "נא למלא שם, טלפון תקין והודעה."; return; }
+    var btn = startForm.querySelector("[type=submit]"); btn.disabled = true; err.textContent = "";
+    C.start({
+      name: startForm.name.value, phone: startForm.phone.value, message: startForm.message.value,
+      category: "", _gotcha: startForm._gotcha.value
+    }).then(function (j) {
+      startForm.reset();
+      if (j.conv) showThread(j.conv.token, j.messages);
+    }).catch(function (x) { err.textContent = C.errorText(x); })
+      .finally(function () { btn.disabled = false; });
+  });
+
+  var sendTa = sendForm.message;
+  sendTa.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendForm.requestSubmit(); }
+  });
+  sendForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var text = sendTa.value.trim(); if (!text || !thread) return;
+    var err = threadWrap.querySelector(".chat__err"); err.textContent = "";
+    sendTa.disabled = true;
+    thread.send(text).then(function () { sendTa.value = ""; })
+      .catch(function (x) { err.textContent = C.errorText(x); })
+      .finally(function () { sendTa.disabled = false; sendTa.focus(); });
+  });
+
+  // background check for replies on returning visitors
+  (function () {
+    var list = C.list();
+    if (!list.length) return;
+    C.api("list", { tokens: list.map(function (c) { return c.token; }) }).then(function (j) {
+      var n = j.conversations.reduce(function (a, c) { return a + c.unread; }, 0);
+      setBadge(n);
+      if (j.conversations.length) showThread(j.conversations[0].token);
+    }).catch(function () {});
+  })();
+
   /* ---------- Contact form ---------- */
   var form = $("#contactForm"), status = $("#formStatus");
   form.addEventListener("submit", function (e) {
@@ -121,10 +203,10 @@
       var bad = form.querySelector(":invalid"); if (bad) bad.focus();
       return;
     }
-    if (form._gotcha.value) return; // spam bot
     var d = {
       name: form.name.value.trim(), phone: form.phone.value.trim(),
-      business: form.business.value.trim(), category: form.category.value, message: form.message.value.trim()
+      business: form.business.value.trim(), category: form.category.value, message: form.message.value.trim(),
+      _gotcha: form._gotcha.value
     };
     var text = "פנייה חדשה מהאתר – " + S.name +
       "\nשם: " + d.name + "\nטלפון: " + d.phone +
@@ -132,25 +214,17 @@
       (d.category ? "\nתחום: " + d.category : "") +
       "\nהודעה: " + d.message;
 
-    if (!S.formEndpoint) {
-      window.open(waLink(text), "_blank", "noopener");
-      status.textContent = "נפתח וואטסאפ עם פרטי הפנייה – רק ללחוץ שליחה.";
-      status.classList.add("is-ok");
-      return;
-    }
     var btn = form.querySelector("[type=submit]");
     btn.disabled = true; status.textContent = "שולח…";
-    fetch(S.formEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify(Object.assign({ _subject: "פנייה חדשה מהאתר – " + S.name }, d))
-    }).then(function (r) {
-      if (!r.ok) throw new Error(r.status);
+    C.start(d).then(function (j) {
       form.reset();
-      status.textContent = "תודה! הפנייה התקבלה ונחזור אליכם בהקדם.";
+      status.innerHTML = 'תודה! הפנייה התקבלה ונחזור אליכם בהקדם. אפשר לעקוב אחרי התשובה בצ׳אט או ב<a href="my.html">הפניות שלי</a>.';
       status.classList.add("is-ok");
-    }).catch(function () {
-      status.innerHTML = 'אירעה שגיאה בשליחה. אפשר לשלוח לנו <a target="_blank" rel="noopener" href="' + waLink(text) + '">בוואטסאפ</a>.';
+      if (j.conv) { showThread(j.conv.token, j.messages); openChat(); }
+    }).catch(function (x) {
+      var server = !x.code || x.code === "server";
+      status.innerHTML = (server ? "לא הצלחנו לשלוח דרך האתר כרגע." : C.errorText(x)) +
+        ' אפשר לשלוח לנו <a target="_blank" rel="noopener" href="' + waLink(text) + '">בוואטסאפ</a>.';
       status.classList.add("is-err");
     }).finally(function () { btn.disabled = false; });
   });
