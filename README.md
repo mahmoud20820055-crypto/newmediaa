@@ -20,7 +20,7 @@
 ## التعديل على الموقع
 
 ```bash
-export WP_USER=NewMedia_Manager
+export WP_USER='...'          # اسم المستخدم
 export WP_APP_PASSWORD='...'   # من متغيرات البيئة فقط، لا تضعها في الملفات
 python3 scripts/wp.py whoami
 python3 scripts/wp.py replace pages 92 "أراء عملائنا" "آراء عملائنا"          # تجربة
