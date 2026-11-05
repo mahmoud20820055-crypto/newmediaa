@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Masa Clinic Reel</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{
+  --pink:#c8437a; --pink-d:#9e2457; --plum:#2a0d1d; --plum2:#4a1530;
+  --cream:#f5ece2; --cream2:#e9d8c6; --brown:#6b4426;
+  --gold:linear-gradient(100deg,#8a5a1c 0%,#c99439 22%,#f6dc9a 45%,#d6a347 62%,#9b6a22 82%,#e7c37a 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Cairo',sans-serif;direction:rtl;
+  background:radial-gradient(120% 80% at 50% 30%,#fbf5ee 0%,var(--cream) 45%,var(--cream2) 100%);}
+.layer{position:absolute;inset:0}
+.scene{position:absolute;inset:0;opacity:0;will-change:opacity,transform}
+.dark{background:radial-gradient(110% 70% at 50% 45%,#5a1b3a 0%,#33102a 45%,#14060e 100%)}
+.creambg{background:radial-gradient(120% 80% at 50% 30%,#fdf8f2 0%,var(--cream) 50%,var(--cream2) 100%)}
+.blurbg{position:absolute;inset:-60px;background-size:cover;background-position:center;filter:blur(40px) saturate(1.1) brightness(1.02);transform:scale(1.15)}
+.blurbg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(245,236,226,.55) 0%,rgba(245,236,226,.35) 40%,rgba(245,236,226,.82) 75%,rgba(240,228,215,.95) 100%)}
+
+/* photo card */
+.card{position:absolute;left:50%;border-radius:46px;overflow:hidden;transform:translateX(-50%);
+  box-shadow:0 40px 90px rgba(80,30,40,.35),0 0 0 3px rgba(214,163,71,.9),0 0 0 12px rgba(255,248,238,.55);}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:50% 50%}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 60%,rgba(60,20,30,.25) 100%)}
+.shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-120%)}
+
+/* text */
+.txt{position:absolute;left:0;right:0;text-align:center;line-height:1.25}
+.w{display:inline-block;white-space:pre}
+.h-pink{color:var(--pink);font-weight:900}
+.h-white{color:#fff;font-weight:900;text-shadow:0 6px 30px rgba(0,0,0,.45)}
+.h-brown{color:#4b2a17;font-weight:800}
+.gold{padding:.1em .06em .3em;margin:-.1em -.06em -.3em;background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900;
+  filter:drop-shadow(0 4px 10px rgba(110,60,10,.35))}
+.scene:not(.dark) .gold{background-image:linear-gradient(100deg,#6e4210 0%,#a8711f 25%,#d4a046 45%,#b07a25 62%,#7c4d14 82%,#b8873a 100%);
+  filter:drop-shadow(0 2px 0 rgba(255,250,240,.9)) drop-shadow(0 6px 14px rgba(110,60,10,.3))}
+.dark .gold{filter:drop-shadow(0 0 22px rgba(240,190,90,.45)) drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+.latin{font-family:'Playfair Display',serif;direction:ltr;unicode-bidi:isolate;font-style:normal}
+.chip{display:inline-flex;align-items:center;gap:16px;padding:14px 42px;border-radius:999px;font-weight:800}
+.chip.pink{background:linear-gradient(180deg,#d4558a,#b13366);color:#fff;box-shadow:0 14px 34px rgba(170,40,95,.4),inset 0 2px 0 rgba(255,255,255,.35)}
+.chip.goldbg{background:var(--gold);color:#3a2208;box-shadow:0 14px 34px rgba(150,95,20,.35),inset 0 2px 0 rgba(255,255,255,.5)}
+.chip.glass{background:rgba(255,250,244,.85);color:#5a3418;border:2px solid rgba(214,163,71,.8);box-shadow:0 12px 30px rgba(90,40,30,.18)}
+.line{height:4px;margin:0 auto;background:linear-gradient(90deg,transparent,#d6a347,#f4d998,#d6a347,transparent);border-radius:4px}
+
+/* brand bug */
+#bug{position:absolute;top:118px;left:50%;transform:translateX(-50%);padding:14px 34px;border-radius:999px;
+  background:rgba(255,249,242,.88);box-shadow:0 10px 30px rgba(60,20,30,.18),0 0 0 2px rgba(214,163,71,.65);opacity:0}
+#bug img{height:92px;display:block}
+
+#fx{position:absolute;inset:0;pointer-events:none}
+#flash{position:absolute;inset:0;opacity:0;mix-blend-mode:screen;
+  background:radial-gradient(60% 40% at 70% 40%,rgba(255,226,170,.95),rgba(255,190,150,.4) 45%,transparent 75%)}
+#grain{position:absolute;inset:0;opacity:.06;mix-blend-mode:overlay}
+#vig{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 45%,transparent 60%,rgba(40,10,20,.35) 100%)}
+
+/* gauge */
+.gauge{position:absolute;left:50%;top:560px;width:760px;height:760px;transform:translateX(-50%)}
+.ring-glow{filter:drop-shadow(0 0 18px rgba(246,210,130,.9))}
+
+/* skin tones */
+.tones{position:absolute;top:1030px;left:0;right:0;display:flex;justify-content:center;gap:26px;direction:ltr}
+.tone{width:132px;height:132px;border-radius:50%;position:relative;
+  box-shadow:0 18px 30px rgba(90,40,30,.28),0 0 0 6px #fff,0 0 0 9px #d6a347}
+.tone .ok{position:absolute;right:-6px;bottom:-6px;width:50px;height:50px;border-radius:50%;background:linear-gradient(180deg,#d4558a,#a92b5e);
+  color:#fff;font-size:32px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px #fff}
+
+/* wavelengths */
+.wave{position:absolute;inset:0;opacity:0}
+.beam{position:absolute;left:50%;top:0;width:340px;height:100%;transform:translateX(-50%);filter:blur(20px)}
+.lens{position:absolute;left:50%;top:430px;width:300px;height:300px;transform:translate(-50%,0);border-radius:50%}
+.wnum{position:absolute;top:800px;left:0;right:0;text-align:center;font-weight:900;font-size:300px;line-height:1;color:#fff;direction:ltr}
+.wnum small{font-size:90px;font-weight:700;margin-left:14px}
+.wcap{position:absolute;top:1160px;left:0;right:0;text-align:center}
+
+/* badge */
+.badge{position:absolute;width:330px;height:330px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#e0659a,#b02d63 60%,#7d1b45);color:#fff;
+  box-shadow:0 30px 60px rgba(120,20,60,.45),0 0 0 8px #fff,0 0 0 14px #d6a347;text-align:center}
+.badge .n{font-size:170px;font-weight:900;line-height:1;margin-top:46px;display:block}
+.badge .l{font-size:44px;font-weight:800;display:block;margin-top:-6px}
+.badge svg{position:absolute;inset:-46px;width:422px;height:422px}
+
+.pill{display:inline-flex;align-items:center;gap:22px;padding:22px 46px;border-radius:999px;font-weight:800}
+.ico{width:64px;height:64px;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center}
+.ico svg{width:34px;height:34px;fill:#fff}
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- ============ S1 LOGO INTRO ============ -->
+  <section class="scene creambg" id="s1">
+    <div class="layer" style="background:radial-gradient(40% 25% at 50% 42%,rgba(212,85,138,.18),transparent 70%)"></div>
+    <div id="s1logo" style="position:absolute;left:50%;top:560px;width:860px;transform:translateX(-50%)">
+      <img src="img/logo.png" style="width:100%;display:block">
+      <div id="s1shine" style="position:absolute;inset:0;-webkit-mask:url(img/logo.png) center/100% 100% no-repeat;mask:url(img/logo.png) center/100% 100% no-repeat;
+        background:linear-gradient(110deg,transparent 35%,rgba(255,250,225,.95) 50%,transparent 65%);background-size:300% 100%"></div>
+    </div>
+    <div class="line" id="s1line" style="position:absolute;top:1120px;left:190px;right:190px"></div>
+    <div class="txt" id="s1t" style="top:1170px;font-size:78px"><span class="h-pink">لأن جمالك بالتفاصيل</span></div>
+  </section>
+
+  <!-- ============ S2 QUESTION ============ -->
+  <section class="scene" id="s2">
+    <div class="blurbg" style="background-image:url(img/swing.jpg)"></div>
+    <div class="card" id="s2card" style="top:300px;width:960px;height:692px"><img src="img/swing.jpg"><div class="shine"></div></div>
+    <div class="txt" id="s2a" style="top:1080px;font-size:104px"><span class="h-brown split">شو اللي بخلّي</span></div>
+    <div class="txt" id="s2b" style="top:1215px;font-size:122px"><span class="gold latin split" style="font-weight:700">Soprano Titanium</span></div>
+    <div class="txt" id="s2c" style="top:1395px;font-size:76px"><span class="h-pink split">الخيار الأول لأكبر المراكز؟</span></div>
+  </section>
+
+  <!-- ============ S3 VERSION 2026 ============ -->
+  <section class="scene" id="s3">
+    <div class="blurbg" style="background-image:url(img/screen.jpg)"></div>
+    <div class="card" id="s3card" style="top:300px;width:960px;height:620px"><img src="img/screen.jpg" style="object-position:40% 50%"><div class="shine"></div></div>
+    <div class="txt" id="s3a" style="top:1010px;font-size:104px"><span class="h-brown">الجهاز</span></div>
+    <div class="txt" id="s3b" style="top:1150px;font-size:56px"><span class="chip pink">إصدار</span></div>
+    <div class="txt" id="s3c" style="top:1240px;font-size:290px;line-height:1.1"><span class="gold latin" id="yr" style="font-family:Cairo">2026</span></div>
+  </section>
+
+  <!-- ============ S4 POWER 2000W ============ -->
+  <section class="scene dark" id="s4">
+    <div class="txt" id="s4a" style="top:330px;font-size:92px"><span class="h-white split">بيوصل بقوة طاقة</span></div>
+    <svg class="gauge" viewBox="0 0 760 760">
+      <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b6a22"/><stop offset=".45" stop-color="#f6dc9a"/><stop offset="1" stop-color="#c8437a"/></linearGradient></defs>
+      <circle cx="380" cy="380" r="320" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="34"/>
+      <circle cx="380" cy="380" r="320" fill="none" stroke="rgba(214,163,71,.35)" stroke-width="2" stroke-dasharray="4 18"/>
+      <circle id="ring" class="ring-glow" cx="380" cy="380" r="320" fill="none" stroke="url(#gg)" stroke-width="34" stroke-linecap="round"
+        stroke-dasharray="2010.6" stroke-dashoffset="2010.6" transform="rotate(-90 380 380)"/>
+    </svg>
+    <div class="txt" style="top:770px;font-size:230px;line-height:1"><span class="gold" id="watt" style="font-family:Cairo">2000</span></div>
+    <div class="txt" id="s4u" style="top:1020px;font-size:88px"><span class="h-white">واط</span></div>
+    <div class="txt" id="s4b" style="top:1420px;font-size:58px"><span class="chip goldbg">طاقة أعلى = نتائج أسرع</span></div>
+  </section>
+
+  <!-- ============ S5 HANDPIECES ============ -->
+  <section class="scene" id="s5">
+    <div class="blurbg" style="background-image:url(img/doctor.jpg)"></div>
+    <div class="card" id="s5card" style="top:290px;width:720px;height:870px"><img src="img/doctor.jpg" style="object-position:50% 35%"><div class="shine"></div></div>
+    <div class="txt" id="s5a" style="top:1180px;font-size:120px"><span class="h-pink">الإيدين</span></div>
+    <div class="txt" id="s5b" style="top:1340px;font-size:72px"><span class="h-brown split">تحكّم لمسي كامل</span></div>
+    <div class="txt" id="s5c" style="top:1470px;font-size:54px;display:flex;justify-content:center;gap:24px">
+      <span class="chip goldbg" id="s5c1">بقوة <b class="latin" style="font-family:Cairo">2000</b> واط</span>
+      <span class="chip pink" id="s5c2"><b style="font-family:Cairo">1600</b> واط</span>
+    </div>
+  </section>
+
+  <!-- ============ S6 TRIO / 3 WAVES ============ -->
+  <section class="scene dark" id="s6">
+    <div class="txt" id="s6a" style="top:420px;font-size:100px"><span class="h-white split">نظام إشعاع</span></div>
+    <div class="txt" id="s6b" style="top:555px;font-size:110px"><span class="gold latin split" style="font-weight:700">Trio Laser</span></div>
+    <div class="txt" id="s6c" style="top:700px;font-size:520px;line-height:1"><span class="gold" style="font-family:Cairo">3</span></div>
+    <div class="txt" id="s6d" style="top:1260px;font-size:120px"><span class="h-white">موجات</span></div>
+    <div class="txt" id="s6e" style="top:1440px;font-size:50px"><span class="chip glass">بجلسة وحدة</span></div>
+  </section>
+
+  <!-- ============ S7 WAVELENGTHS ============ -->
+  <section class="scene" id="s7" style="background:#0d0508">
+    <div class="wave" id="w1">
+      <div class="beam" style="background:linear-gradient(180deg,transparent,rgba(255,80,40,.55) 30%,rgba(255,120,60,.25) 70%,transparent)"></div>
+      <div class="lens" style="background:radial-gradient(circle,#fff6e0 0%,#ffb070 18%,rgba(255,70,30,.75) 40%,rgba(255,40,20,0) 70%)"></div>
+      <div class="wnum" style="text-shadow:0 0 50px rgba(255,90,40,.9),0 0 120px rgba(255,60,30,.6)">1064<small>nm</small></div>
+      <div class="wcap" style="font-size:66px"><span class="chip glass">للبشرة الداكنة والسمراء</span></div>
+    </div>
+    <div class="wave" id="w2">
+      <div class="beam" style="background:linear-gradient(180deg,transparent,rgba(230,60,140,.55) 30%,rgba(200,70,140,.25) 70%,transparent)"></div>
+      <div class="lens" style="background:radial-gradient(circle,#fff0f6 0%,#ff9cc6 18%,rgba(220,50,130,.75) 40%,rgba(200,40,120,0) 70%)"></div>
+      <div class="wnum" style="text-shadow:0 0 50px rgba(230,70,150,.9),0 0 120px rgba(200,50,130,.6)">808<small>nm</small></div>
+      <div class="wcap" style="font-size:66px"><span class="chip glass">لكل أنواع الشعر والبشرة</span></div>
+    </div>
+    <div class="wave" id="w3">
+      <div class="beam" style="background:linear-gradient(180deg,transparent,rgba(70,230,120,.5) 30%,rgba(60,200,110,.22) 70%,transparent)"></div>
+      <div class="lens" style="background:radial-gradient(circle,#f0fff4 0%,#9cffbc 18%,rgba(50,210,100,.75) 40%,rgba(40,200,90,0) 70%)"></div>
+      <div class="wnum" style="text-shadow:0 0 50px rgba(70,230,120,.9),0 0 120px rgba(50,200,100,.6)">755<small>nm</small></div>
+      <div class="wcap" style="font-size:66px"><span class="chip glass">للبشرة الفاتحة والشعر الناعم</span></div>
+    </div>
+  </section>
+
+  <!-- ============ S8 ALL SKIN TONES ============ -->
+  <section class="scene creambg" id="s8">
+    <div class="layer" style="background:radial-gradient(50% 30% at 50% 55%,rgba(212,85,138,.16),transparent 70%)"></div>
+    <div class="txt" id="s8a" style="top:520px;font-size:110px"><span class="h-brown split">مناسب لجميع</span></div>
+    <div class="txt" id="s8b" style="top:670px;font-size:150px"><span class="gold split">ألوان البشرة</span></div>
+    <div class="tones" id="tones">
+      <div class="tone" style="background:radial-gradient(circle at 35% 30%,#fbe3d3,#f1c7ad)"><span class="ok">✓</span></div>
+      <div class="tone" style="background:radial-gradient(circle at 35% 30%,#efc9a8,#ddaa82)"><span class="ok">✓</span></div>
+      <div class="tone" style="background:radial-gradient(circle at 35% 30%,#d9a57a,#c08657)"><span class="ok">✓</span></div>
+      <div class="tone" style="background:radial-gradient(circle at 35% 30%,#b97f52,#9a6238)"><span class="ok">✓</span></div>
+      <div class="tone" style="background:radial-gradient(circle at 35% 30%,#8c5b37,#6d4224)"><span class="ok">✓</span></div>
+      <div class="tone" style="background:radial-gradient(circle at 35% 30%,#61402a,#3f2716)"><span class="ok">✓</span></div>
+    </div>
+    <div class="txt" id="s8c" style="top:1290px;font-size:64px"><span class="h-pink split">من الفاتحة للسمراء.. بأمان تام</span></div>
+  </section>
+
+  <!-- ============ S9 COOLING ============ -->
+  <section class="scene" id="s9">
+    <div class="blurbg" style="background-image:url(img/patient.jpg)"></div>
+    <div class="card" id="s9card" style="top:300px;width:960px;height:620px"><img src="img/patient.jpg" style="object-position:40% 40%"><div class="shine"></div></div>
+    <div id="frost" class="card" style="top:300px;width:960px;height:620px;box-shadow:none;background:radial-gradient(80% 70% at 50% 50%,transparent 40%,rgba(190,225,255,.55) 100%);mix-blend-mode:screen;opacity:0"></div>
+    <div class="txt" id="s9a" style="top:1000px;font-size:130px"><span class="h-pink">والأقوى</span></div>
+    <div class="txt" id="s9b" style="top:1170px;font-size:100px"><span class="gold split">نظام تبريد مستمر</span></div>
+    <div class="txt" id="s9c" style="top:1340px;font-size:56px"><span class="chip glass split">❄ بيحمي بشرتك من الحرارة</span></div>
+  </section>
+
+  <!-- ============ S10 RESULTS FROM FIRST SESSION ============ -->
+  <section class="scene" id="s10">
+    <div class="blurbg" style="background-image:url(img/treat.jpg)"></div>
+    <div class="card" id="s10card" style="top:300px;width:960px;height:800px"><img src="img/treat.jpg" style="object-position:50% 50%"><div class="shine"></div></div>
+    <div class="badge" id="badge" style="top:860px;left:90px">
+      <svg viewBox="0 0 422 422"><circle id="bring" style="transform-box:fill-box;transform-origin:center" cx="211" cy="211" r="196" fill="none" stroke="#d6a347" stroke-width="5" stroke-dasharray="14 12"/></svg>
+      <span class="n">1</span><span class="l">جلسة</span>
+    </div>
+    <div class="txt" id="s10a" style="top:1215px;font-size:104px"><span class="h-brown split">النتائج بتبيّن</span></div>
+    <div class="txt" id="s10b" style="top:1355px;font-size:132px"><span class="gold split">من أول جلسة</span></div>
+  </section>
+
+  <!-- ============ S11 FAST & PAINLESS ============ -->
+  <section class="scene dark" id="s11">
+    <div class="txt" id="s11a" style="top:470px;font-size:100px"><span class="h-white split">يعني جلسات ليزر</span></div>
+    <div class="txt" id="s11b" style="top:640px;font-size:220px;line-height:1.15"><span class="gold">سريعة</span></div>
+    <div class="txt" id="s11c" style="top:930px;font-size:200px;line-height:1.15"><span style="color:#e2669c;font-weight:900;text-shadow:0 0 40px rgba(226,102,156,.6)">بدون ألم</span></div>
+    <div class="txt" id="s11d" style="top:1260px;font-size:58px"><span class="chip goldbg">✨ ونعومة بتدوم</span></div>
+  </section>
+
+  <!-- ============ S12 CTA ============ -->
+  <section class="scene creambg" id="s12">
+    <div class="layer" style="background:radial-gradient(50% 28% at 50% 30%,rgba(212,85,138,.15),transparent 70%)"></div>
+    <div id="s12logo" style="position:absolute;left:50%;top:250px;width:700px;transform:translateX(-50%)">
+      <img src="img/logo.png" style="width:100%;display:block">
+      <div id="s12shine" style="position:absolute;inset:0;-webkit-mask:url(img/logo.png) center/100% 100% no-repeat;mask:url(img/logo.png) center/100% 100% no-repeat;
+        background:linear-gradient(110deg,transparent 35%,rgba(255,250,225,.95) 50%,transparent 65%);background-size:300% 100%"></div>
+    </div>
+    <div class="txt" id="s12a" style="top:720px;font-size:100px"><span class="h-pink split">لأن جمالك بالتفاصيل</span></div>
+    <div class="txt" id="s12b" style="top:860px;font-size:80px"><span class="gold split">ابدئي رحلتك مع الليزر</span></div>
+    <div class="txt" id="s12c" style="top:1030px;font-size:66px"><span class="chip goldbg" style="padding:22px 70px">احجزي موعدك الآن</span></div>
+    <div class="txt" id="s12d" style="top:1210px;font-size:74px">
+      <span class="pill chip pink" style="direction:ltr"><span class="ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></span><span style="font-family:Cairo;letter-spacing:4px">0594184741</span></span>
+    </div>
+    <div class="txt" id="s12e" style="top:1370px;font-size:50px">
+      <span class="pill chip glass"><span class="ico" style="background:var(--pink)"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span>عوريف وسط البلد بجانب مسجد النور</span>
+    </div>
+  </section>
+
+  <div id="bug"><img src="img/logo.png"></div>
+  <canvas id="fx" width="1080" height="1920"></canvas>
+  <div id="flash"></div>
+  <canvas id="grain" width="540" height="960" style="width:1080px;height:1920px"></canvas>
+  <div id="vig"></div>
+</div>
+
+<script>
+const T = 35.0;
+const S = { // scene windows [start,end]
+  s1:[0,2.5], s2:[2.5,5.7], s3:[5.7,8.3], s4:[8.3,10.9], s5:[10.9,13.7], s6:[13.7,15.8],
+  s7:[15.8,19.6], s8:[19.6,22.5], s9:[22.5,25.2], s10:[25.2,28.1], s11:[28.1,30.8], s12:[30.8,35.0]
+};
+const $ = s => document.querySelector(s);
+const EASE = 'cubic-bezier(.16,1,.3,1)';
+const BACK = 'cubic-bezier(.34,1.56,.64,1)';
+const anims = [];
+function A(el, frames, start, dur, ease=EASE, fill='both'){
+  if(typeof el==='string') el=$(el);
+  const a = el.animate(frames,{duration:dur*1000,delay:start*1000,fill,easing:ease});
+  a.pause(); anims.push(a); return a;
+}
+// full-timeline keyframes for scene in/out
+function sceneWin(id, s, e, fi=.35, fo=.3, opts={}){
+  const el = $('#'+id), k=x=>Math.min(1,Math.max(0,x/T));
+  const zin = opts.zin ?? 1.08, zout = opts.zout ?? .97;
+  const fr = [
+    {offset:0, opacity:0, transform:`scale(${zin})`, filter:'blur(14px)'},
+    {offset:k(s), opacity:0, transform:`scale(${zin})`, filter:'blur(14px)'},
+    {offset:k(s+fi), opacity:1, transform:'scale(1)', filter:'blur(0px)'},
+    {offset:k(e-fo), opacity:1, transform:'scale(1)', filter:'blur(0px)'},
+    {offset:k(e), opacity:s===0&&false?1:0, transform:`scale(${zout})`, filter:'blur(10px)'},
+    {offset:1, opacity:0, transform:`scale(${zout})`, filter:'blur(10px)'}
+  ];
+  if(e>=T){ fr[4]={offset:k(e)-1e-6,opacity:1,transform:'scale(1)',filter:'blur(0px)'}; fr[5]={offset:1,opacity:1,transform:'scale(1)',filter:'blur(0px)'}; }
+  if(s===0){ fr[1].offset=0.00001; }
+  fr.forEach((f,i)=>{ if(i>0 && f.offset<fr[i-1].offset) f.offset=fr[i-1].offset; });
+  fr.forEach(f=>{ if(!f.easing) f.easing='cubic-bezier(.4,0,.2,1)'; });
+  const a = el.animate(fr,{duration:T*1000,fill:'both',easing:'linear'}); a.pause(); anims.push(a);
+}
+// split text into words for staggered reveal
+function splitWords(span){
+  const words = span.textContent.trim().split(/\s+/);
+  span.textContent='';
+  words.forEach((w,i)=>{ const s=document.createElement('span'); s.className='w'; s.textContent=w+(i<words.length-1?' ':''); span.appendChild(s); });
+  return [...span.querySelectorAll('.w')];
+}
+function reveal(sel, start, step=.12, dur=.6, from='up'){
+  const root=$(sel); const sp=root.querySelector('.split');
+  let parts = sp ? splitWords(sp) : [root.firstElementChild||root];
+  if(sp && sp.classList.contains('gold')){ // keep gradient per word
+    parts.forEach(p=>{p.classList.add('gold'); if(sp.classList.contains('latin')) p.classList.add('latin');});
+    sp.classList.remove('gold'); sp.style.filter='none';
+  }
+  parts.forEach((p,i)=>{
+    const tr = from==='up' ? 'translateY(60px)' : from==='pop' ? 'scale(.4)' : 'translateY(-50px)';
+    A(p,[{opacity:0,transform:tr,filter:'blur(16px)'},{opacity:1,transform:'none',filter:'blur(0px)'}],start+i*step,dur, from==='pop'?BACK:EASE);
+  });
+}
+function pop(sel,start,dur=.6,from='scale(.5)'){ A(sel,[{opacity:0,transform:from},{opacity:1,transform:'none'}],start,dur,BACK); }
+function rise(sel,start,dur=.7,dy=70){ A(sel,[{opacity:0,transform:`translateY(${dy}px)`,filter:'blur(12px)'},{opacity:1,transform:'none',filter:'blur(0px)'}],start,dur); }
+function card(id,s,e,dir=1){
+  A(`#${id}`,[{opacity:0,transform:`translateX(-50%) translateY(120px) rotate(${dir*3}deg) scale(.9)`},{opacity:1,transform:'translateX(-50%) translateY(0) rotate(0) scale(1)'}],s+.05,.8);
+  A(`#${id} img`,[{transform:'scale(1.02)'},{transform:'scale(1.16)'}],s,e-s+.4,'linear');
+  A(`#${id} .shine`,[{transform:'translateX(-120%)'},{transform:'translateX(120%)'}],s+.6,1.1,'ease-in-out','none');
+}
+function flash(t){ A('#flash',[{opacity:0},{opacity:.85,offset:.4},{opacity:0}],t-.22,.6,'ease-out','none'); }
+
+function build(){
+  for(const [id,[s,e]] of Object.entries(S)) sceneWin(id,s,e, s===0?.01:.35, .3, {zin: id==='s7'?1.0:1.08});
+  Object.values(S).slice(1).forEach(([s])=>flash(s));
+
+  // brand bug visible during middle scenes
+  const k=x=>x/T;
+  const bug=$('#bug').animate([
+    {offset:0,opacity:0,transform:'translateX(-50%) translateY(-30px)'},
+    {offset:k(S.s2[0]+.2),opacity:0,transform:'translateX(-50%) translateY(-30px)'},
+    {offset:k(S.s2[0]+.7),opacity:1,transform:'translateX(-50%) translateY(0)'},
+    {offset:k(S.s12[0]-.3),opacity:1,transform:'translateX(-50%) translateY(0)'},
+    {offset:k(S.s12[0]),opacity:0,transform:'translateX(-50%) translateY(-30px)'},
+    {offset:1,opacity:0,transform:'translateX(-50%) translateY(-30px)'}],{duration:T*1000,fill:'both'}); bug.pause(); anims.push(bug);
+
+  // S1
+  A('#s1logo',[{opacity:0,transform:'translateX(-50%) scale(1.25)',filter:'blur(24px)'},{opacity:1,transform:'translateX(-50%) scale(1)',filter:'blur(0)'}],.1,1.2);
+  A('#s1shine',[{backgroundPosition:'100% 0'},{backgroundPosition:'-50% 0'}],.9,1.1,'ease-in-out');
+  A('#s1line',[{transform:'scaleX(0)',opacity:0},{transform:'scaleX(1)',opacity:1}],.8,.9);
+  rise('#s1t',1.05,.8,50);
+
+  // S2
+  let s=S.s2[0]; card('s2card',s,S.s2[1]);
+  reveal('#s2a',s+.35,.13); reveal('#s2b',s+.8,.18,.7); reveal('#s2c',s+1.4,.12);
+
+  // S3
+  s=S.s3[0]; card('s3card',s,S.s3[1],-1);
+  rise('#s3a',s+.3); pop('#s3b',s+.55); pop('#s3c',s+.75,.7,'scale(.6) translateY(60px)');
+
+  // S4
+  s=S.s4[0];
+  reveal('#s4a',s+.2,.12);
+  A('#ring',[{strokeDashoffset:2010.6},{strokeDashoffset:0}],s+.4,1.5,'cubic-bezier(.3,.1,.2,1)');
+  pop('#s4u',s+1.0); pop('#s4b',s+1.4);
+
+  // S5
+  s=S.s5[0]; card('s5card',s,S.s5[1]);
+  pop('#s5a',s+.35,.6,'scale(.6)'); reveal('#s5b',s+.75,.12); pop('#s5c1',s+1.25); pop('#s5c2',s+1.5);
+
+  // S6
+  s=S.s6[0];
+  reveal('#s6a',s+.15,.12); reveal('#s6b',s+.45,.15);
+  A('#s6c',[{opacity:0,transform:'scale(2.4)',filter:'blur(30px)'},{opacity:1,transform:'scale(1)',filter:'blur(0)'}],s+.6,.6,'cubic-bezier(.2,1.2,.4,1)');
+  pop('#s6d',s+.95); pop('#s6e',s+1.25);
+
+  // S7 wavelengths (each ~1.25s)
+  s=S.s7[0]; const d=(S.s7[1]-s)/3;
+  ['#w1','#w2','#w3'].forEach((id,i)=>{
+    const t0=s+i*d;
+    A(id, i<2 ? [{opacity:0},{opacity:1,offset:.12},{opacity:1,offset:.9},{opacity:0}] : [{opacity:0},{opacity:1}], t0, i<2 ? d+.05 : .18, 'linear');
+    A(id+' .wnum',[{opacity:0,transform:'scale(1.8)',filter:'blur(20px)'},{opacity:1,transform:'scale(1)',filter:'blur(0)'}],t0,.45,'cubic-bezier(.2,1.1,.4,1)');
+    A(id+' .beam',[{opacity:0,transform:'translateX(-50%) scaleX(.2)'},{opacity:1,transform:'translateX(-50%) scaleX(1)'}],t0,.5);
+    A(id+' .lens',[{transform:'translate(-50%,0) scale(.3)',opacity:0},{transform:'translate(-50%,0) scale(1.15)',opacity:1,offset:.35},{transform:'translate(-50%,0) scale(1)',opacity:.9}],t0,d,'ease-out');
+    rise(id+' .wcap',t0+.25,.5,40);
+  });
+
+  // S8
+  s=S.s8[0];
+  reveal('#s8a',s+.2,.12); reveal('#s8b',s+.45,.15);
+  [...document.querySelectorAll('.tone')].forEach((el,i)=>{
+    A(el,[{opacity:0,transform:'translateY(80px) scale(.3)'},{opacity:1,transform:'none'}],s+.8+i*.1,.6,BACK);
+    A(el.querySelector('.ok'),[{opacity:0,transform:'scale(0) rotate(-90deg)'},{opacity:1,transform:'none'}],s+1.3+i*.08,.45,BACK);
+  });
+  reveal('#s8c',s+1.6,.1);
+
+  // S9
+  s=S.s9[0]; card('s9card',s,S.s9[1],-1);
+  A('#frost',[{opacity:0},{opacity:1}],s+.9,1.0,'ease-in-out');
+  pop('#s9a',s+.3,.6,'scale(.6)'); reveal('#s9b',s+.65,.14); rise('#s9c',s+1.2);
+
+  // S10
+  s=S.s10[0]; card('s10card',s,S.s10[1]);
+  A('#badge',[{opacity:0,transform:'scale(0) rotate(-200deg)'},{opacity:1,transform:'none'}],s+.5,.8,BACK);
+  A('#bring',[{transform:'rotate(0deg)'},{transform:'rotate(120deg)'}],s,S.s10[1]-s,'linear');
+  reveal('#s10a',s+.4,.12); reveal('#s10b',s+.8,.16,.7,'pop');
+
+  // S11
+  s=S.s11[0];
+  reveal('#s11a',s+.15,.12);
+  A('#s11b',[{opacity:0,transform:'translateX(-260px) skewX(-18deg)',filter:'blur(18px)'},{opacity:1,transform:'none',filter:'blur(0)'}],s+.55,.5,'cubic-bezier(.2,1.3,.4,1)');
+  A('#s11c',[{opacity:0,transform:'scale(.5)',filter:'blur(18px)'},{opacity:1,transform:'none',filter:'blur(0)'}],s+.95,.6,BACK);
+  pop('#s11d',s+1.45);
+
+  // S12
+  s=S.s12[0];
+  A('#s12logo',[{opacity:0,transform:'translateX(-50%) scale(1.2)',filter:'blur(20px)'},{opacity:1,transform:'translateX(-50%) scale(1)',filter:'blur(0)'}],s+.1,1.0);
+  A('#s12shine',[{backgroundPosition:'100% 0'},{backgroundPosition:'-50% 0'}],s+.9,1.1,'ease-in-out');
+  reveal('#s12a',s+.5,.12); reveal('#s12b',s+.85,.12);
+  pop('#s12c',s+1.3); A('#s12c .chip',[{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],s+2.0,.9,'ease-in-out','none');
+  A('#s12c .chip',[{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],s+3.0,.9,'ease-in-out','none');
+  rise('#s12d',s+1.6); rise('#s12e',s+1.85);
+}
+
+/* ---------- canvas FX: gold dust + feathers ---------- */
+const fx=$('#fx'), cx=fx.getContext('2d');
+function rnd(i){ const x=Math.sin(i*127.1+311.7)*43758.5453; return x-Math.floor(x); }
+const featherSprite=(()=>{
+  const c=document.createElement('canvas'); c.width=220; c.height=520; const g=c.getContext('2d');
+  g.translate(110,500);
+  const spine=t=>({x:Math.sin(t*1.4)*26*t, y:-t*470});
+  for(let i=0;i<=120;i++){
+    const t=i/120; if(t<.12) continue; const p=spine(t);
+    const w=Math.sin(Math.PI*Math.min(1,(t-.12)/.88))*92*(1-.15*t);
+    for(const side of [-1,1]){
+      g.beginPath(); g.moveTo(p.x,p.y);
+      g.quadraticCurveTo(p.x+side*w*.5,p.y-8,p.x+side*w,p.y-30-12*rnd(i*3+side));
+      g.strokeStyle=`rgba(255,255,255,${.55+.35*rnd(i+side)})`; g.lineWidth=1.6; g.stroke();
+    }
+  }
+  g.beginPath(); for(let i=0;i<=60;i++){const p=spine(i/60); i?g.lineTo(p.x,p.y):g.moveTo(p.x,p.y);} g.strokeStyle='rgba(235,225,215,.95)'; g.lineWidth=4; g.stroke();
+  return c;
+})();
+const feathers=[
+  {x0:880,y0:-200,vy:150,amp:70,rot:.5,s:.85,t0:0},
+  {x0:160,y0:1700,vy:-120,amp:60,rot:-.6,s:.7,t0:0},
+  {x0:930,y0:2050,vy:-140,amp:50,rot:2.6,s:.6,t0:0},
+  {x0:120,y0:-300,vy:130,amp:80,rot:-2.4,s:.55,t0:0},
+];
+function darkAt(t){ return [S.s4,S.s6,S.s7,S.s11].some(([a,b])=>t>a+.1&&t<b-.1); }
+function drawFx(t){
+  cx.clearRect(0,0,1080,1920);
+  const dark=darkAt(t);
+  // gold dust
+  for(let i=0;i<70;i++){
+    const sp=20+rnd(i)*60, x=(rnd(i+1)*1080+Math.sin(t*.6+i)*30), y=((rnd(i+2)*2200 - t*sp)%2200+2200)%2200-140;
+    const r=1.5+rnd(i+3)*5, tw=.35+.65*Math.abs(Math.sin(t*2+i*1.7));
+    const gr=cx.createRadialGradient(x,y,0,x,y,r*4);
+    gr.addColorStop(0,`rgba(255,236,180,${(dark?.9:.75)*tw})`); gr.addColorStop(.3,`rgba(232,186,98,${.45*tw})`); gr.addColorStop(1,'rgba(232,186,98,0)');
+    cx.fillStyle=gr; cx.beginPath(); cx.arc(x,y,r*4,0,7); cx.fill();
+  }
+  // feathers (only in light scenes + intro/cta)
+  const showF = !dark && !(t>S.s7[0]&&t<S.s7[1]);
+  if(showF){
+    feathers.forEach((f,i)=>{
+      const y=f.y0+f.vy*t*.7, x=f.x0+Math.sin(t*.9+i)*f.amp, a=f.rot+Math.sin(t*1.1+i*2)*.35;
+      if(y<-400||y>2300) return;
+      cx.save(); cx.translate(x,y); cx.rotate(a); cx.scale(f.s,f.s);
+      cx.shadowColor='rgba(120,70,60,.35)'; cx.shadowBlur=24; cx.shadowOffsetY=14;
+      cx.drawImage(featherSprite,-110,-260); cx.restore();
+    });
+  }
+  // ice sparkles for cooling scene
+  if(t>S.s9[0]+.8 && t<S.s9[1]){
+    const p=Math.min(1,(t-S.s9[0]-.8)/.8);
+    for(let i=0;i<26;i++){
+      const x=90+rnd(i+50)*900, y=300+rnd(i+80)*620, s=(6+rnd(i+9)*12)*p*(.6+.4*Math.sin(t*5+i));
+      cx.save(); cx.translate(x,y); cx.rotate(t+i); cx.strokeStyle=`rgba(225,245,255,${.85*p})`; cx.lineWidth=2.4;
+      for(let k=0;k<3;k++){cx.rotate(Math.PI/3); cx.beginPath(); cx.moveTo(-s,0); cx.lineTo(s,0); cx.stroke();}
+      cx.restore();
+    }
+  }
+}
+const gc=$('#grain').getContext('2d'); const gimg=gc.createImageData(540,960);
+function drawGrain(f){ const d=gimg.data; let seed=f*9301+49297; for(let i=0;i<d.length;i+=4){ seed=(seed*16807)%2147483647; const v=seed%255; d[i]=d[i+1]=d[i+2]=v; d[i+3]=255;} gc.putImageData(gimg,0,0); }
+
+function setCounters(t){
+  const c=(a,b,s,d,ease=x=>1-Math.pow(1-x,3))=>{const p=Math.min(1,Math.max(0,(t-s)/d)); return Math.round(a+(b-a)*ease(p));};
+  $('#yr').textContent = c(2000,2026,S.s3[0]+.75,1.1);
+  $('#watt').textContent = c(0,2000,S.s4[0]+.4,1.5).toString();
+}
+
+window.render = (t)=>{
+  anims.forEach(a=>a.currentTime=t*1000);
+  setCounters(t); drawFx(t); drawGrain(Math.floor(t*30));
+};
+window.TOTAL=T;
+build();
+Promise.all([document.fonts.ready, ...[...document.images].map(i=>i.decode().catch(()=>{}))]).then(()=>{ render(0); window.ready=true; });
+</script>
+</body>
+</html>
